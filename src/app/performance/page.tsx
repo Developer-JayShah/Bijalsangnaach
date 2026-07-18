@@ -1,4 +1,12 @@
+import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Performances",
+  description:
+    "Watch Bijalsangnaach's Kathak performances and book a custom performance for weddings, festivals, and cultural events.",
+};
 
 type Performance = {
   title: string;
@@ -39,10 +47,6 @@ const performances: Performance[] = [
     poster: "/collage/b14.jpeg",
   },
 ];
-
-function cx(...classes: Array<string | false | null | undefined>) {
-  return classes.filter(Boolean).join(" ");
-}
 
 export default function PerformancesPage() {
   // ✅ MAIN HERO VIDEO (your current 1 video)
@@ -155,7 +159,43 @@ export default function PerformancesPage() {
         </section>
 
         {/* MORE PERFORMANCES */}
-        
+        <section className="mt-14">
+          <h2 className="font-serif text-3xl">More Performances</h2>
+          <div className="mt-6 grid gap-6 md:grid-cols-3">
+            {performances.map((perf) => (
+              <div
+                key={perf.title}
+                className="overflow-hidden rounded-2xl border border-white/10 bg-neutral-900/25"
+              >
+                {perf.poster && (
+                  <div className="relative aspect-[4/3] bg-black">
+                    <Image
+                      src={perf.poster}
+                      alt={perf.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      className="object-contain"
+                    />
+                  </div>
+                )}
+                <div className="p-5">
+                  <h3 className="font-serif text-lg">{perf.title}</h3>
+                  <p className="mt-1 text-xs text-neutral-400">
+                    {[perf.date, perf.location].filter(Boolean).join(" · ")}
+                  </p>
+                  <p className="mt-3 text-sm text-neutral-300">{perf.description}</p>
+                  {perf.highlights && (
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {perf.highlights.map((h) => (
+                        <Badge key={h}>{h}</Badge>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
 
         {/* FOOTER CTA */}
         <section className="mt-14 rounded-2xl border border-white/10 bg-gradient-to-br from-neutral-900/40 to-neutral-900/10 p-7 md:p-10">
@@ -173,7 +213,7 @@ export default function PerformancesPage() {
               Book a Performance
             </Link>
             <Link
-              href=""
+              href="/gallery"
               className="rounded-full border border-white/15 bg-white/5 px-6 py-3 font-semibold text-white hover:bg-white/10 transition"
             >
               View Gallery

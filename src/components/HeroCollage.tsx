@@ -12,10 +12,9 @@ type Props = {
   ctaLabel?: string;
   images: string[];
 
-  instagramUrl?: string;
-  youtubeUrl?: string;
-  facebookUrl?: string;
-  email?: string;
+  whatsappHref?: string;
+  reelSrc?: string;
+  reelPoster?: string;
 };
 
 export default function HeroCollage({
@@ -25,10 +24,9 @@ export default function HeroCollage({
   ctaLabel = "Know More",
   images,
 
-  instagramUrl = "https://instagram.com/",
-  youtubeUrl = "https://youtube.com/",
-  facebookUrl = "https://facebook.com/",
-  email = "info@bijalsangnaach.com",
+  whatsappHref,
+  reelSrc,
+  reelPoster,
 }: Props) {
   // ✅ 12 tiles only (4 cols × 3 rows)
   const TILE_COUNT = 12;
@@ -104,7 +102,7 @@ className={`object-cover tile-soft tile-${(idx % 6) + 1} ${tileFocus(idx)}`}
               href="/register"
               className="inline-block rounded-full bg-amber-300 px-8 py-3 font-semibold text-black hover:bg-amber-200 transition"
             >
-              Book Trial / Register
+              Register
             </Link>
 
             <Link
@@ -115,19 +113,30 @@ className={`object-cover tile-soft tile-${(idx % 6) + 1} ${tileFocus(idx)}`}
             </Link>
           </motion.div>
 
-          <motion.div
-            className="mt-10 flex flex-wrap items-center justify-center gap-3 text-white/95"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.75, delay: 0.5 }}
-          >
-            <SocialPill href={instagramUrl} label="Instagram" />
-            <SocialPill href={youtubeUrl} label="YouTube" />
-            <SocialPill href={facebookUrl} label="Facebook" />
-            <SocialPill href={`mailto:${email}`} label="Email" />
-          </motion.div>
+          {whatsappHref && (
+            <motion.div
+              className="mt-10 flex flex-wrap items-center justify-center gap-3 text-white/95"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.75, delay: 0.5 }}
+            >
+              <SocialPill href={whatsappHref} label="Message us on WhatsApp" />
+            </motion.div>
+          )}
+
+          {reelSrc && (
+            <div className="mt-10 lg:hidden">
+              <ReelCard src={reelSrc} poster={reelPoster} className="mx-auto w-40 sm:w-48" />
+            </div>
+          )}
         </div>
       </div>
+
+      {reelSrc && (
+        <div className="absolute bottom-10 right-10 z-10 hidden lg:block">
+          <ReelCard src={reelSrc} poster={reelPoster} className="w-56 xl:w-64" />
+        </div>
+      )}
 
       {/* ✅ Softer zoom (less “cut”) */}
       <style jsx global>{`
@@ -160,6 +169,67 @@ className={`object-cover tile-soft tile-${(idx % 6) + 1} ${tileFocus(idx)}`}
         .tile-6 { animation: softA 25s ease-in-out infinite; }
       `}</style>
     </section>
+  );
+}
+
+function ReelCard({
+  src,
+  poster,
+  className = "",
+}: {
+  src: string;
+  poster?: string;
+  className?: string;
+}) {
+  const videoRef = React.useRef<HTMLVideoElement>(null);
+
+  React.useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.muted = true;
+    const tryPlay = () => {
+      video.play().catch(() => {
+        // Autoplay blocked (e.g. low-power mode) -- user can tap to play.
+      });
+    };
+    tryPlay();
+    video.addEventListener("loadeddata", tryPlay);
+    return () => video.removeEventListener("loadeddata", tryPlay);
+  }, []);
+
+  return (
+    <div
+      className={`relative aspect-[9/16] overflow-hidden rounded-3xl border border-amber-200/30 bg-black shadow-[0_20px_60px_rgba(0,0,0,0.6)] ${className}`}
+    >
+      <video
+        ref={videoRef}
+        className="h-full w-full object-cover motion-reduce:hidden"
+        src={src}
+        poster={poster}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        onClick={(e) => {
+          const v = e.currentTarget;
+          if (v.paused) v.play().catch(() => {});
+        }}
+      />
+      {poster && (
+        <Image
+          src={poster}
+          alt="Bijal dancing Kathak"
+          fill
+          sizes="256px"
+          className="hidden object-cover motion-reduce:block"
+        />
+      )}
+      <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-white/10" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-3">
+        <p className="text-[11px] font-medium tracking-wide text-white/90">Kathak in motion</p>
+      </div>
+    </div>
   );
 }
 

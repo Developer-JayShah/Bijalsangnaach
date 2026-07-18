@@ -18,9 +18,7 @@ export default function ContactPage() {
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
 
-  // ✅ Replace these with your sister’s real details
-  const WHATSAPP_NUMBER = "919999999999"; // country code + number (no +, no spaces)
-  const CONTACT_EMAIL = "your-email@example.com";
+  const WHATSAPP_NUMBER = "17329551883"; // country code + number (no +, no spaces)
 
   function update<K extends keyof typeof form>(key: K, value: string) {
     setForm((p) => ({ ...p, [key]: value }));
@@ -48,7 +46,7 @@ export default function ContactPage() {
 
     setSubmitting(true);
     try {
-      const res = await fetch("/api/contact", {
+      const res = await fetch("/api/inquiry/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -166,12 +164,9 @@ export default function ContactPage() {
                   💬 WhatsApp: Message us
                 </a>
 
-                <a
-                  href={`mailto:${CONTACT_EMAIL}`}
-                  className="block rounded-xl border border-neutral-800 bg-neutral-950/40 px-4 py-3 text-sm hover:bg-neutral-900/40 transition"
-                >
-                  ✉️ Email: {CONTACT_EMAIL}
-                </a>
+                <p className="rounded-xl border border-neutral-800 bg-neutral-950/40 px-4 py-3 text-sm text-neutral-400">
+                  ✉️ Prefer email? Use the form — we&apos;ll reply from our inbox.
+                </p>
               </div>
             </Card>
 

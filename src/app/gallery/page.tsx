@@ -12,12 +12,20 @@ type GalleryItem = {
 };
 
 const ITEMS: GalleryItem[] = [
-  // ✅ Update these paths to match your /public/gallery files
-  { src: "/collage/b1.jpeg", alt: "Kathak performance", category: "Performances" },
-  { src: "/gallery/perf-2.jpg", alt: "Stage performance", category: "Performances" },
-  { src: "/gallery/class-1.jpg", alt: "Kathak class", category: "Classes" },
-  { src: "/gallery/award-1.jpg", alt: "Award moment", category: "Awards" },
-  { src: "/gallery/behind-1.jpg", alt: "Behind the scenes", category: "Behind" },
+  { src: "/collage/b1.jpg", alt: "Kathak performance", category: "Performances" },
+  { src: "/collage/b2.jpeg", alt: "Kathak performance", category: "Performances" },
+  { src: "/collage/b3.jpeg", alt: "Kathak performance", category: "Performances" },
+  { src: "/collage/b4.jpeg", alt: "Kathak performance", category: "Performances" },
+  { src: "/collage/b5.jpeg", alt: "Kathak performance", category: "Performances" },
+  { src: "/collage/b6.jpeg", alt: "Kathak performance", category: "Performances" },
+  { src: "/collage/b7.jpeg", alt: "Kathak performance", category: "Performances" },
+  { src: "/collage/b8.jpeg", alt: "Kathak performance", category: "Performances" },
+  { src: "/collage/b9.jpeg", alt: "Kathak performance", category: "Performances" },
+  { src: "/collage/b10.jpeg", alt: "Kathak performance", category: "Performances" },
+  { src: "/collage/b11.jpeg", alt: "Kathak performance", category: "Performances" },
+  { src: "/collage/b12.jpeg", alt: "Kathak performance", category: "Performances" },
+  { src: "/collage/b13.jpeg", alt: "Kathak performance", category: "Performances" },
+  { src: "/collage/b14.jpeg", alt: "Kathak performance", category: "Performances" },
 ];
 
 const TABS: Category[] = ["All", "Performances", "Classes", "Awards", "Behind"];
@@ -68,6 +76,11 @@ export default function GalleryPage() {
         </div>
 
         {/* Grid */}
+        {filtered.length === 0 ? (
+          <p className="rounded-2xl border border-white/10 bg-white/5 px-6 py-16 text-center text-neutral-400">
+            More photos coming soon.
+          </p>
+        ) : (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
           {filtered.map((item) => (
             <button
@@ -91,6 +104,7 @@ export default function GalleryPage() {
             </button>
           ))}
         </div>
+        )}
       </div>
 
       {/* Lightbox */}

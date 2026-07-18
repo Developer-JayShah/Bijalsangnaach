@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 
 type Gender = "Male" | "Female" | "Other";
 type Level = "Beginner" | "Intermediate" | "Advance";
@@ -62,18 +62,6 @@ export default function RegisterPage() {
   const isOtherGender = form.gender === "Other";
   const isHeardOther = form.heard.includes("Other");
 
-  const fees = useMemo(() => {
-    // You shared only Beginner fees. We keep others as “Contact us”.
-    const isIndia = form.country === "INDIA";
-    const beginnerFee = isIndia ? "₹1500 / month" : "$160 / month";
-    return {
-      beginnerFee,
-      note: isIndia
-        ? "India residents pricing."
-        : "International pricing (USA/UK/CANADA).",
-    };
-  }, [form.country]);
-
   function update<K extends keyof FormState>(key: K, value: FormState[K]) {
     setForm((p) => ({ ...p, [key]: value }));
   }
@@ -133,7 +121,7 @@ export default function RegisterPage() {
         heardOther: form.heard.includes("Other") ? form.heardOther.trim() : undefined,
       };
 
-      const res = await fetch("/api/inquiry", {
+      const res = await fetch("/api/inquiry/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -155,8 +143,8 @@ export default function RegisterPage() {
     }
   }
 
-return (
-  <main className="min-h-screen bg-neutral-950 text-neutral-100 pt-24 md:pt-28">
+  return (
+    <main className="min-h-screen bg-neutral-950 text-neutral-100 pt-24 md:pt-28">
       <div className="mx-auto max-w-5xl px-4 pb-14">
         <div className="mb-10">
           <p className="text-xs tracking-[0.25em] text-amber-200/80">
@@ -214,16 +202,16 @@ return (
               </Field>
 
               {isOtherGender && (
-                <Field label="Please specify gender *" className="md:col-span-2">
+                <Field label="Specify gender *" className="md:col-span-2">
                   <Input
                     value={form.genderOther}
                     onChange={(e) => update("genderOther", e.target.value)}
-                    placeholder="Write here..."
+                    placeholder="Please specify"
                   />
                 </Field>
               )}
 
-              <Field label="Contact Number (WhatsApp only) *">
+              <Field label="Contact Number (WhatsApp only) *" className="md:col-span-1">
                 <Input
                   value={form.whatsapp}
                   onChange={(e) => update("whatsapp", e.target.value)}
@@ -231,7 +219,7 @@ return (
                 />
               </Field>
 
-              <Field label="Email *">
+              <Field label="Email *" className="md:col-span-1">
                 <Input
                   value={form.email}
                   onChange={(e) => update("email", e.target.value)}
@@ -245,8 +233,8 @@ return (
                   onChange={(e) => update("level", e.target.value as Level)}
                   options={[
                     { value: "Beginner", label: "Beginner" },
-                    { value: "Intermediate", label: "Intermediate (min 3 years exp.)" },
-                    { value: "Advance", label: "Advance (min 5+ years exp.)" },
+                    { value: "Intermediate", label: "Intermediate" },
+                    { value: "Advance", label: "Advance" },
                   ]}
                 />
               </Field>
@@ -263,7 +251,7 @@ return (
                 />
               </Field>
 
-              <Field label="Your Country (fee structure) *">
+              <Field label="Your Country (fee structure) *" className="md:col-span-2">
                 <Select
                   value={form.country}
                   onChange={(e) => update("country", e.target.value as Country)}
@@ -291,103 +279,105 @@ return (
                   placeholder="Optional"
                 />
               </Field>
-
-              <Field label="How did you hear about our Kathak Classes?" className="md:col-span-2">
-                <div className="grid gap-3 md:grid-cols-2">
-                  <Check label="Instagram" checked={form.heard.includes("Instagram")} onChange={() => toggleHeard("Instagram")} />
-                  <Check label="Facebook" checked={form.heard.includes("Facebook")} onChange={() => toggleHeard("Facebook")} />
-                  <Check label="Friends / Family" checked={form.heard.includes("Friends/Family")} onChange={() => toggleHeard("Friends/Family")} />
-                  <Check label="Other" checked={form.heard.includes("Other")} onChange={() => toggleHeard("Other")} />
-                </div>
-
-                {isHeardOther && (
-                  <div className="mt-3">
-                    <Input
-                      value={form.heardOther}
-                      onChange={(e) => update("heardOther", e.target.value)}
-                      placeholder="Please specify..."
-                    />
-                  </div>
-                )}
-              </Field>
             </div>
 
-            <div className="mt-6 flex flex-col gap-3">
-              {status === "error" && (
-                <div className="rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-200">
-                  {errorMsg}
-                </div>
-              )}
-              {status === "success" && (
-                <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-200">
-                  Submitted successfully! We’ll contact you soon.
-                </div>
-              )}
-
-              <button
-                type="submit"
-                disabled={submitting}
-                className={cx(
-                  "rounded-xl bg-amber-300 px-5 py-3 font-semibold text-neutral-900 transition",
-                  "hover:bg-amber-200",
-                  submitting && "cursor-not-allowed opacity-70"
-                )}
-              >
-                {submitting ? "Submitting..." : "Submit Registration"}
-              </button>
-
-              <p className="text-xs text-neutral-400">
-                By submitting, you agree that we may contact you via email/WhatsApp.
+            <div className="mt-7">
+              <p className="mb-3 text-sm font-medium text-neutral-200">
+                How did you hear about our Kathak Classes?
               </p>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {["Instagram", "Facebook", "Friends / Family", "Other"].map((item) => (
+                  <label
+                    key={item}
+                    className="flex items-center gap-3 rounded-xl border border-neutral-800 bg-neutral-950/40 px-4 py-3 text-sm"
+                  >
+                    <input
+                      type="checkbox"
+                      checked={form.heard.includes(item)}
+                      onChange={() => toggleHeard(item)}
+                    />
+                    <span>{item}</span>
+                  </label>
+                ))}
+              </div>
+
+              {isHeardOther && (
+                <div className="mt-3">
+                  <Input
+                    value={form.heardOther}
+                    onChange={(e) => update("heardOther", e.target.value)}
+                    placeholder="Please specify..."
+                  />
+                </div>
+              )}
             </div>
+
+            {status === "error" && (
+              <div className="mt-6 rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-200">
+                {errorMsg || "Failed to submit. Try again."}
+              </div>
+            )}
+
+            {status === "success" && (
+              <div className="mt-6 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-200">
+                Registration submitted successfully! We’ll reply soon.
+              </div>
+            )}
+
+            <button
+              type="submit"
+              disabled={submitting}
+              className={cx(
+                "mt-6 w-full rounded-xl bg-amber-300 px-6 py-3 text-sm font-semibold text-neutral-900",
+                "hover:bg-amber-200 transition disabled:opacity-60 disabled:cursor-not-allowed"
+              )}
+            >
+              {submitting ? "Submitting..." : "Submit Registration"}
+            </button>
+
+            <p className="mt-3 text-xs text-neutral-400">
+              By submitting, you agree that we may contact you via email/WhatsApp.
+            </p>
           </form>
 
           {/* RIGHT SIDEBAR */}
-          <aside className="space-y-6">
-            <Card title="Online Trial Classes">
-              <p className="text-sm text-neutral-300">
-                Classes are conducted online via Zoom. If you miss a class, recording will be
-                available for 7 days.
-              </p>
-
-              <div className="mt-4 space-y-3 text-sm">
-                <div className="rounded-xl border border-neutral-800 bg-neutral-900/40 p-4">
-                  <p className="font-semibold">Beginner Schedule</p>
-                  <ul className="mt-2 space-y-1 text-neutral-300">
-                    <li>Mon–Tue: 8:30–9:30 PM (EST) / 7:00–8:00 AM (IST)</li>
-                    <li>Wed–Thu: 7:30–8:30 PM (EST) / 6:00–7:00 AM (IST)</li>
-                    <li>Sat–Sun: 8:30–9:30 AM (EST) / 7:00–8:00 PM (IST)</li>
-                  </ul>
-                  <p className="mt-2 text-neutral-400">Total: 8 classes per month</p>
-                </div>
-
-                <div className="rounded-xl border border-neutral-800 bg-neutral-900/40 p-4">
-                  <p className="font-semibold">Fees (Beginner)</p>
-                  <p className="mt-2 text-neutral-300">{fees.beginnerFee}</p>
-                  <p className="mt-1 text-xs text-neutral-400">{fees.note}</p>
-                  <p className="mt-2 text-xs text-neutral-400">
-                    If you reside outside India (even if you are an Indian citizen), international fees apply.
-                  </p>
-                </div>
-
-                <div className="rounded-xl border border-neutral-800 bg-neutral-900/40 p-4">
-                  <p className="font-semibold">Trial Class</p>
-                  <p className="mt-2 text-neutral-300">December 27, 2025</p>
-                  <p className="mt-1 text-neutral-300">India: 7:00–7:30 PM (IST)</p>
-                  <p className="mt-1 text-neutral-300">USA/UK/CANADA: 8:00–8:30 AM (EST)</p>
-                </div>
-              </div>
-            </Card>
-
+          <div className="space-y-6">
             <Card title="Need help?">
               <p className="text-sm text-neutral-300">
                 If you have questions before registering, submit this form and we will message you.
               </p>
             </Card>
-          </aside>
+          </div>
         </div>
       </div>
     </main>
+  );
+}
+
+function Select({
+  value,
+  onChange,
+  options,
+}: {
+  value: string;
+  onChange: React.ChangeEventHandler<HTMLSelectElement>;
+  options: Array<{ value: string; label: string }>;
+}) {
+  return (
+    <select
+      value={value}
+      onChange={onChange}
+      className={cx(
+        "w-full rounded-xl border border-neutral-800 bg-neutral-950/60 px-4 py-3 text-sm text-neutral-100",
+        "focus:border-amber-300/60 focus:outline-none focus:ring-2 focus:ring-amber-300/20"
+      )}
+    >
+      {options.map((o) => (
+        <option key={o.value} value={o.value} className="bg-neutral-950">
+          {o.label}
+        </option>
+      ))}
+    </select>
   );
 }
 
@@ -424,71 +414,12 @@ function Textarea(props: React.TextareaHTMLAttributes<HTMLTextAreaElement>) {
   return (
     <textarea
       {...props}
-      rows={4}
+      rows={5}
       className={cx(
         "w-full rounded-xl border border-neutral-800 bg-neutral-950/60 px-4 py-3 text-sm text-neutral-100",
         "placeholder:text-neutral-500 focus:border-amber-300/60 focus:outline-none focus:ring-2 focus:ring-amber-300/20"
       )}
     />
-  );
-}
-
-function Select({
-  value,
-  onChange,
-  options,
-}: {
-  value: string;
-  onChange: React.ChangeEventHandler<HTMLSelectElement>;
-  options: Array<{ value: string; label: string }>;
-}) {
-  return (
-    <select
-      value={value}
-      onChange={onChange}
-      className={cx(
-        "w-full rounded-xl border border-neutral-800 bg-neutral-950/60 px-4 py-3 text-sm text-neutral-100",
-        "focus:border-amber-300/60 focus:outline-none focus:ring-2 focus:ring-amber-300/20"
-      )}
-    >
-      {options.map((o) => (
-        <option key={o.value} value={o.value} className="bg-neutral-950">
-          {o.label}
-        </option>
-      ))}
-    </select>
-  );
-}
-
-function Check({
-  label,
-  checked,
-  onChange,
-}: {
-  label: string;
-  checked: boolean;
-  onChange: () => void;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onChange}
-      className={cx(
-        "flex items-center gap-3 rounded-xl border px-4 py-3 text-left text-sm transition",
-        checked
-          ? "border-amber-300/60 bg-amber-300/10 text-amber-200"
-          : "border-neutral-800 bg-neutral-950/40 text-neutral-200 hover:bg-neutral-900/40"
-      )}
-      aria-pressed={checked}
-    >
-      <span
-        className={cx(
-          "h-4 w-4 rounded border",
-          checked ? "border-amber-300 bg-amber-300" : "border-neutral-500"
-        )}
-      />
-      {label}
-    </button>
   );
 }
 

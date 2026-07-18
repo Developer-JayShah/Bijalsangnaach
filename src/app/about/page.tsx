@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "About Bijal",
+  description:
+    "Meet Bijal Barot — National Balshree Award winner, Kathak Visharad trained in the Jaipur Gharana, and founder of Bijalsangnaach Kathak Academy.",
+};
 
 const sidebarLinks = [
   { href: "#about", label: "About Me" },
@@ -18,6 +25,11 @@ import {
   Target,
   Users
 } from "lucide-react";
+
+const WHATSAPP_NUMBER = "17329551883";
+const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+  "Hi! I'd like to enquire about Bijalsangnaach Kathak classes."
+)}`;
 
 
 export default function AboutPage() {
@@ -433,30 +445,21 @@ export default function AboutPage() {
             </p>
             <p className="space-y-1 text-sm text-neutral-100">
               <span className="block">
-                <span className="font-semibold">Email:</span>{" "}
+                <span className="font-semibold">WhatsApp:</span>{" "}
                 <a
-                  href="mailto:info@Bijalsangnaach.com"
-                  className="underline underline-offset-2 hover:text-amber-200"
-                >
-                  info@Bijalsangnaach.com
-                </a>
-              </span>
-              <span className="block">
-                <span className="font-semibold">Instagram:</span>{" "}
-                <a
-                  href="https://instagram.com/your_instagram_here"
+                  href={whatsappLink}
                   target="_blank"
                   rel="noreferrer"
                   className="underline underline-offset-2 hover:text-amber-200"
                 >
-                  @your_instagram_here
+                  Message us directly
                 </a>
               </span>
             </p>
             <p className="text-sm text-neutral-300">
               For detailed schedule, fees, or to book a trial class, please use
-              the Register / Enquire button above or send us an email with your
-              name, age, and previous dance experience.
+              the Register / Enquire button above or message us on WhatsApp with
+              your name, age, and previous dance experience.
             </p>
           </section>
         </div>
