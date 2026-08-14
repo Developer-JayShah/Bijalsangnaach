@@ -14,6 +14,8 @@ type FormState = {
 
   whatsapp: string;
   email: string;
+  country: string;
+  state: string;
 
   level: Level;
 
@@ -33,6 +35,8 @@ const initialState: FormState = {
 
   whatsapp: "",
   email: "",
+  country: "",
+  state: "",
 
   level: "Beginner",
 
@@ -76,6 +80,8 @@ export default function RegisterPage() {
     if (!form.whatsapp.trim()) return "Please enter your WhatsApp number.";
     if (!form.email.trim()) return "Please enter your email.";
     if (!/^\S+@\S+\.\S+$/.test(form.email.trim())) return "Please enter a valid email.";
+    if (!form.country.trim()) return "Please enter your country.";
+    if (!form.state.trim()) return "Please enter your state / province.";
     if (isOtherGender && !form.genderOther.trim()) return "Please specify gender.";
     if (isHeardOther && !form.heardOther.trim()) return "Please specify how you heard about us.";
     return "";
@@ -112,6 +118,8 @@ Gender: ${genderLine}
 
 WhatsApp/Contact: ${form.whatsapp.trim()}
 Email: ${form.email.trim()}
+Country: ${form.country.trim()}
+State / Province: ${form.state.trim()}
 
 Level: ${form.level}
 
@@ -208,6 +216,22 @@ Heard from: ${heardLine}`;
                   value={form.email}
                   onChange={(e) => update("email", e.target.value)}
                   placeholder="you@example.com"
+                />
+              </Field>
+
+              <Field label="Country *" className="md:col-span-1">
+                <Input
+                  value={form.country}
+                  onChange={(e) => update("country", e.target.value)}
+                  placeholder="e.g. USA, India"
+                />
+              </Field>
+
+              <Field label="State / Province *" className="md:col-span-1">
+                <Input
+                  value={form.state}
+                  onChange={(e) => update("state", e.target.value)}
+                  placeholder="e.g. New Jersey, Gujarat"
                 />
               </Field>
 
