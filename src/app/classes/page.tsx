@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { MapPin, Globe, Users, GraduationCap, Sparkles } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Kathak Classes",
@@ -12,6 +13,14 @@ const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent
   "Hi! I'd like to enquire about Bijalsangnaach Kathak classes."
 )}`;
 
+const BATCH_HIGHLIGHTS = [
+  { icon: MapPin, text: "New Jersey (In-Person)" },
+  { icon: Globe, text: "Worldwide (Online)" },
+  { icon: Users, text: "Kids · Teens · Adults" },
+  { icon: GraduationCap, text: "Beginner–Advanced" },
+  { icon: Sparkles, text: "Optional Exams & Performance" },
+];
+
 export default function ClassesPage() {
   return (
     <main className="min-h-screen bg-black text-white">
@@ -23,13 +32,26 @@ export default function ClassesPage() {
             BIJALSANGNAACH • CLASSES
           </p>
           <h1 className="mt-3 font-serif text-5xl leading-[1.05]">
-            Online Kathak Classes
+            Online &amp; In-Person Kathak Classes
           </h1>
           <p className="mt-4 max-w-2xl text-sm leading-6 text-neutral-300">
-            Beginner / Intermediate / Advanced batches. Classes are conducted
-            online via Zoom. If you miss a class, recording will be available for
-            7 days.
+            Beginner / Intermediate / Advanced batches. Join in-person in New
+            Jersey, or online via Zoom from anywhere. If you miss an online
+            class, recording will be available for 7 days.
           </p>
+
+          {/* Highlight badges */}
+          <ul className="mt-5 flex flex-wrap gap-2.5">
+            {BATCH_HIGHLIGHTS.map(({ icon: Icon, text }) => (
+              <li
+                key={text}
+                className="flex items-center gap-1.5 rounded-full border border-amber-300/20 bg-amber-300/[0.06] px-3.5 py-1.5 text-xs text-neutral-200"
+              >
+                <Icon className="h-3.5 w-3.5 flex-shrink-0 text-amber-300" />
+                {text}
+              </li>
+            ))}
+          </ul>
 
           {/* Hero Buttons */}
           <div className="mt-7 flex flex-wrap gap-3">

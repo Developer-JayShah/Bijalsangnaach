@@ -12,6 +12,7 @@ export default function ContactPage() {
     email: "",
     whatsapp: "",
     message: "",
+    company: "", // honeypot — must stay empty
   });
 
   const [submitting, setSubmitting] = useState(false);
@@ -54,6 +55,7 @@ export default function ContactPage() {
           email: form.email.trim(),
           whatsapp: form.whatsapp.trim() || undefined,
           message: form.message.trim(),
+          company: form.company,
         }),
       });
 
@@ -61,7 +63,7 @@ export default function ContactPage() {
       if (!res.ok) throw new Error(data?.error || "Failed to send. Try again.");
 
       setStatus("success");
-      setForm({ name: "", email: "", whatsapp: "", message: "" });
+      setForm({ name: "", email: "", whatsapp: "", message: "", company: "" });
     } catch (err: any) {
       setStatus("error");
       setErrorMsg(err?.message || "Something went wrong.");
@@ -124,6 +126,18 @@ export default function ContactPage() {
                 />
               </Field>
             </div>
+
+            {/* Honeypot field — hidden from real users, catches basic bots */}
+            <input
+              type="text"
+              name="company"
+              value={form.company}
+              onChange={(e) => update("company", e.target.value)}
+              tabIndex={-1}
+              autoComplete="off"
+              className="absolute left-[-9999px] h-0 w-0 opacity-0"
+              aria-hidden="true"
+            />
 
             <div className="mt-6 flex flex-col gap-3">
               {status === "error" && (

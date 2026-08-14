@@ -128,36 +128,51 @@ export default function AboutPage() {
          <section id="about-me" className="space-y-4">
   <h2 className="text-xl md:text-2xl font-semibold mb-2">About Bijal</h2>
 
-  <p className="leading-relaxed text-neutral-200">
-    Bijal Barot is an internationally recognized Kathak artist, MCA graduate, and
-    Kathak Visharad from Gujarat, India. Trained under{" "}
-    <span className="font-semibold">Smt. Namrata Shah</span> and rooted in the{" "}
-    <span className="font-semibold">Jaipur Gharana</span> tradition, she
-    combines classical depth with artistic versatility.
-  </p>
+  <div className="flex flex-col gap-6 md:flex-row">
+    <div className="relative mx-auto h-[420px] w-full max-w-[300px] flex-shrink-0 overflow-hidden rounded-2xl border border-white/10 md:mx-0 md:w-72">
+      <Image
+        src="/collage/about-me-performance.png"
+        alt="Bijal Barot performing Kathak on stage"
+        fill
+        sizes="(min-width: 768px) 288px, 300px"
+        className="object-cover"
+        style={{ objectPosition: "center 15%" }}
+      />
+    </div>
 
-  <p className="leading-relaxed text-neutral-200">
-    Honored with the{" "}
-    <span className="font-semibold">National Balshree Award</span>,{" "}
-    <span className="font-semibold">Nadiad Kala Ratna</span>, and several state
-    and national accolades, Bijal is celebrated for her expressive stage
-    presence and mastery of rhythm. Along with Kathak, she is an accomplished
-    folk dancer, performing at the Modi US event and showcasing Gujarat&apos;s
-    culture at the Kutch Rann Utsav in front of Prime Minister Narendra Modi.
-  </p>
+    <div className="space-y-4">
+      <p className="leading-relaxed text-neutral-200">
+        Bijal Barot is an internationally recognized Kathak artist, MCA graduate, and
+        Kathak Visharad from Gujarat, India. Trained under{" "}
+        <span className="font-semibold">Smt. Namrata Shah</span> and rooted in the{" "}
+        <span className="font-semibold">Jaipur Gharana</span> tradition, she
+        combines classical depth with artistic versatility.
+      </p>
 
-  <p className="leading-relaxed text-neutral-200">
-    Her performances span major stages across India and internationally,
-    including India Day New York, Gujarat Samaj USA, Brahmbhatt Samaj USA, the
-    Uttarardh Festival, Hyderabad Literary Festival, International Kite
-    Festival, and Vibrant Navratri.
-  </p>
+      <p className="leading-relaxed text-neutral-200">
+        Honored with the{" "}
+        <span className="font-semibold">National Balshree Award</span>,{" "}
+        <span className="font-semibold">Nadiad Kala Ratna</span>, and several state
+        and national accolades, Bijal is celebrated for her expressive stage
+        presence and mastery of rhythm. Along with Kathak, she is an accomplished
+        folk dancer, performing at the Modi US event and showcasing Gujarat&apos;s
+        culture at the Kutch Rann Utsav in front of Prime Minister Narendra Modi.
+      </p>
 
-  <p className="leading-relaxed text-neutral-200">
-    In recent years, Bijal has expanded globally as an educator, teaching in the
-    USA and conducting online Kathak classes for students across the USA, UK,
-    and India—building a vibrant international community of dancers.
-  </p>
+      <p className="leading-relaxed text-neutral-200">
+        Her performances span major stages across India and internationally,
+        including India Day New York, Gujarat Samaj USA, Brahmbhatt Samaj USA, the
+        Uttarardh Festival, Hyderabad Literary Festival, International Kite
+        Festival, and Vibrant Navratri.
+      </p>
+
+      <p className="leading-relaxed text-neutral-200">
+        In recent years, Bijal has expanded globally as an educator, teaching in the
+        USA and conducting online Kathak classes for students across the USA, UK,
+        and India—building a vibrant international community of dancers.
+      </p>
+    </div>
+  </div>
 </section>
 
 
@@ -361,7 +376,7 @@ export default function AboutPage() {
       Folk Dance &amp; Special Appearances
     </h3>
     <ul className="list-disc list-inside space-y-1 text-neutral-200">
-      <li>Performed as a Folk Artist at the ModiUS Event.</li>
+      <li>Featured performer at the Modi &amp; US event (2024).</li>
       <li>
         Presented classical–folk fusion pieces at prominent cultural
         gatherings.
@@ -440,8 +455,8 @@ export default function AboutPage() {
             <p>
               Bijalsangnaach is based in{" "}
               <span className="font-semibold">New Jersey, USA</span>, with
-              in-person classes planned in the Edison / Iselin area and online
-              batches for students across the US and internationally.
+              in-person classes and online batches for students across the US
+              and internationally.
             </p>
             <p className="space-y-1 text-sm text-neutral-100">
               <span className="block">

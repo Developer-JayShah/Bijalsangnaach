@@ -23,17 +23,19 @@ const BATCH_HIGHLIGHTS = [
 ];
 
 const CREDENTIALS = [
-  "National Balshree Award — New Delhi",
-  "Trained in the Jaipur Gharana tradition",
-  "Performed before PM Narendra Modi at Kutch Rann Utsav",
-  "Featured on Sony TV's Boogie Woogie Kids Championship",
+  "National Balshree Award Recipient (New Delhi)",
+  "Kathak Gold Medalist",
+  "Disciple of the Jaipur Gharana Tradition",
+  "Performed before Prime Minister Narendra Modi at the Kutch Rann Utsav",
+  "Honoured by Prime Minister Narendra Modi",
+  "Featured Artist on Sony TV's Boogie Woogie Kids Championship",
 ];
 
 const FEATURES = [
   {
     icon: Award,
     title: "National Award-Winning Training",
-    desc: "Learn from a National Balshree awardee trained in the Jaipur Gharana tradition.",
+    desc: "Learn from a National Balshree awardee, World Record holder, and Gold Medalist, trained in the Jaipur Gharana tradition.",
   },
   {
     icon: Globe,

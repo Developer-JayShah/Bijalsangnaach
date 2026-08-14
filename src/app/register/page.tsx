@@ -4,8 +4,6 @@ import { useState } from "react";
 
 type Gender = "Male" | "Female" | "Other";
 type Level = "Beginner" | "Intermediate" | "Advance";
-type Batch = "Mon–Tue" | "Wed–Thu" | "Sat–Sun";
-type Country = "USA" | "UK" | "CANADA" | "INDIA";
 
 type FormState = {
   name: string;
@@ -18,14 +16,14 @@ type FormState = {
   email: string;
 
   level: Level;
-  batch: Batch;
-  country: Country;
 
   goals: string;
   background: string;
 
   heard: string[]; // Instagram, Facebook, Friends/Family, Other
   heardOther: string;
+
+  company: string; // honeypot — must stay empty
 };
 
 const initialState: FormState = {
@@ -39,14 +37,14 @@ const initialState: FormState = {
   email: "",
 
   level: "Beginner",
-  batch: "Mon–Tue",
-  country: "USA",
 
   goals: "",
   background: "",
 
   heard: [],
   heardOther: "",
+
+  company: "",
 };
 
 function cx(...classes: Array<string | false | undefined | null>) {
@@ -111,14 +109,14 @@ export default function RegisterPage() {
         email: form.email.trim(),
 
         level: form.level,
-        batch: form.batch,
-        country: form.country,
 
         goals: form.goals.trim() || undefined,
         background: form.background.trim() || undefined,
 
         heard: form.heard,
         heardOther: form.heard.includes("Other") ? form.heardOther.trim() : undefined,
+
+        company: form.company,
       };
 
       const res = await fetch("/api/inquiry/register", {
@@ -239,31 +237,6 @@ export default function RegisterPage() {
                 />
               </Field>
 
-              <Field label="Batch *">
-                <Select
-                  value={form.batch}
-                  onChange={(e) => update("batch", e.target.value as Batch)}
-                  options={[
-                    { value: "Mon–Tue", label: "Weekdays (Monday–Tuesday)" },
-                    { value: "Wed–Thu", label: "Weekdays (Wednesday–Thursday)" },
-                    { value: "Sat–Sun", label: "Weekend (Saturday–Sunday)" },
-                  ]}
-                />
-              </Field>
-
-              <Field label="Your Country (fee structure) *" className="md:col-span-2">
-                <Select
-                  value={form.country}
-                  onChange={(e) => update("country", e.target.value as Country)}
-                  options={[
-                    { value: "USA", label: "USA" },
-                    { value: "UK", label: "UK" },
-                    { value: "CANADA", label: "CANADA" },
-                    { value: "INDIA", label: "INDIA" },
-                  ]}
-                />
-              </Field>
-
               <Field label="Any specific goals? (Exams, performance, hobby, fitness etc.)" className="md:col-span-2">
                 <Textarea
                   value={form.goals}
@@ -311,6 +284,18 @@ export default function RegisterPage() {
                 </div>
               )}
             </div>
+
+            {/* Honeypot field — hidden from real users, catches basic bots */}
+            <input
+              type="text"
+              name="company"
+              value={form.company}
+              onChange={(e) => update("company", e.target.value)}
+              tabIndex={-1}
+              autoComplete="off"
+              className="absolute left-[-9999px] h-0 w-0 opacity-0"
+              aria-hidden="true"
+            />
 
             {status === "error" && (
               <div className="mt-6 rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-200">
