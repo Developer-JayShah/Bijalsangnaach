@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useMemo, useState } from "react";
 
-type Category = "All" | "Performances" | "Classes" | "Awards" | "Behind";
+type Category = "All" | "Performances" | "Classes" | "Awards";
 
 type GalleryItem = {
   src: string;
@@ -57,7 +57,7 @@ const ITEMS: GalleryItem[] = [
   { src: "/collage/award-21.png", alt: "Award and recognition", category: "Awards" },
 ];
 
-const TABS: Category[] = ["All", "Performances", "Classes", "Awards", "Behind"];
+const TABS: Category[] = ["All", "Performances", "Classes", "Awards"];
 
 function cx(...classes: Array<string | false | undefined | null>) {
   return classes.filter(Boolean).join(" ");
@@ -99,7 +99,7 @@ export default function GalleryPage() {
                   : "border-white/10 bg-white/5 text-neutral-200 hover:bg-white/10"
               )}
             >
-              {t === "Behind" ? "Behind the Scenes" : t}
+              {t}
             </button>
           ))}
         </div>
@@ -157,7 +157,7 @@ export default function GalleryPage() {
             </div>
 
             <div className="flex items-center justify-between px-4 py-3 text-sm text-white/80">
-              <span>{open.category === "Behind" ? "Behind the Scenes" : open.category}</span>
+              <span>{open.category}</span>
               <button
                 onClick={() => setOpen(null)}
                 className="rounded-full border border-white/10 bg-white/5 px-3 py-1 hover:bg-white/10"
