@@ -12,10 +12,8 @@ export default function ContactPage() {
     email: "",
     whatsapp: "",
     message: "",
-    company: "", // honeypot — must stay empty
   });
 
-  const [submitting, setSubmitting] = useState(false);
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -33,7 +31,7 @@ export default function ContactPage() {
     return "";
   }
 
-  async function onSubmit(e: React.FormEvent) {
+  function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setStatus("idle");
     setErrorMsg("");
@@ -45,31 +43,20 @@ export default function ContactPage() {
       return;
     }
 
-    setSubmitting(true);
-    try {
-      const res = await fetch("/api/inquiry/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: form.name.trim(),
-          email: form.email.trim(),
-          whatsapp: form.whatsapp.trim() || undefined,
-          message: form.message.trim(),
-          company: form.company,
-        }),
-      });
+    const text = `New enquiry from website:
 
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok) throw new Error(data?.error || "Failed to send. Try again.");
+Name: ${form.name.trim()}
+Email: ${form.email.trim()}
+WhatsApp: ${form.whatsapp.trim() || "Not provided"}
 
-      setStatus("success");
-      setForm({ name: "", email: "", whatsapp: "", message: "", company: "" });
-    } catch (err: any) {
-      setStatus("error");
-      setErrorMsg(err?.message || "Something went wrong.");
-    } finally {
-      setSubmitting(false);
-    }
+Message:
+${form.message.trim()}`;
+
+    const link = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+    window.open(link, "_blank", "noopener,noreferrer");
+
+    setStatus("success");
+    setForm({ name: "", email: "", whatsapp: "", message: "" });
   }
 
   const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
@@ -127,18 +114,6 @@ export default function ContactPage() {
               </Field>
             </div>
 
-            {/* Honeypot field — hidden from real users, catches basic bots */}
-            <input
-              type="text"
-              name="company"
-              value={form.company}
-              onChange={(e) => update("company", e.target.value)}
-              tabIndex={-1}
-              autoComplete="off"
-              className="absolute left-[-9999px] h-0 w-0 opacity-0"
-              aria-hidden="true"
-            />
-
             <div className="mt-6 flex flex-col gap-3">
               {status === "error" && (
                 <div className="rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-200">
@@ -147,20 +122,15 @@ export default function ContactPage() {
               )}
               {status === "success" && (
                 <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-200">
-                  Message sent successfully! We’ll reply soon.
+                  Opening WhatsApp — just press send there to complete your enquiry.
                 </div>
               )}
 
               <button
                 type="submit"
-                disabled={submitting}
-                className={cx(
-                  "rounded-xl bg-amber-300 px-5 py-3 font-semibold text-neutral-900 transition",
-                  "hover:bg-amber-200",
-                  submitting && "cursor-not-allowed opacity-70"
-                )}
+                className="rounded-xl bg-amber-300 px-5 py-3 font-semibold text-neutral-900 transition hover:bg-amber-200"
               >
-                {submitting ? "Sending..." : "Send Message"}
+                Send via WhatsApp
               </button>
             </div>
           </form>
@@ -178,8 +148,15 @@ export default function ContactPage() {
                   💬 WhatsApp: Message us
                 </a>
 
+                <a
+                  href="mailto:Bijalsangnaach@gmail.com"
+                  className="block rounded-xl border border-neutral-800 bg-neutral-950/40 px-4 py-3 text-sm hover:bg-neutral-900/40 transition"
+                >
+                  ✉️ Email: Bijalsangnaach@gmail.com
+                </a>
+
                 <p className="rounded-xl border border-neutral-800 bg-neutral-950/40 px-4 py-3 text-sm text-neutral-400">
-                  ✉️ Prefer email? Use the form — we&apos;ll reply from our inbox.
+                  📝 Or fill out the form — it opens WhatsApp with your message ready to send.
                 </p>
               </div>
             </Card>

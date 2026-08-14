@@ -1,4 +1,4 @@
-import { Facebook, Instagram, Youtube } from "lucide-react";
+import { Facebook, Instagram, Youtube, Mail } from "lucide-react";
 
 const WHATSAPP_NUMBER = "17329551883";
 const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
@@ -34,6 +34,11 @@ const SOCIAL_LINKS = [
     href: whatsappLink,
     Icon: WhatsAppIcon,
   },
+  {
+    label: "Email us",
+    href: "mailto:Bijalsangnaach@gmail.com",
+    Icon: Mail,
+  },
 ];
 
 export default function Footer() {
@@ -46,18 +51,21 @@ export default function Footer() {
           </p>
 
           <div className="flex items-center gap-4">
-            {SOCIAL_LINKS.map(({ label, href, Icon }) => (
-              <a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={label}
-                className="text-neutral-400 hover:text-amber-200 transition"
-              >
-                <Icon className="h-5 w-5" />
-              </a>
-            ))}
+            {SOCIAL_LINKS.map(({ label, href, Icon }) => {
+              const isMailto = href.startsWith("mailto:");
+              return (
+                <a
+                  key={label}
+                  href={href}
+                  target={isMailto ? undefined : "_blank"}
+                  rel={isMailto ? undefined : "noreferrer"}
+                  aria-label={label}
+                  className="text-neutral-400 hover:text-amber-200 transition"
+                >
+                  <Icon className="h-5 w-5" />
+                </a>
+              );
+            })}
           </div>
         </div>
         <p className="mt-6 text-center text-xs text-neutral-500">

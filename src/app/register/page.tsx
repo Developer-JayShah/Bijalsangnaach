@@ -22,8 +22,6 @@ type FormState = {
 
   heard: string[]; // Instagram, Facebook, Friends/Family, Other
   heardOther: string;
-
-  company: string; // honeypot — must stay empty
 };
 
 const initialState: FormState = {
@@ -43,9 +41,9 @@ const initialState: FormState = {
 
   heard: [],
   heardOther: "",
-
-  company: "",
 };
+
+const WHATSAPP_NUMBER = "17329551883"; // country code + number (no +, no spaces)
 
 function cx(...classes: Array<string | false | undefined | null>) {
   return classes.filter(Boolean).join(" ");
@@ -53,7 +51,6 @@ function cx(...classes: Array<string | false | undefined | null>) {
 
 export default function RegisterPage() {
   const [form, setForm] = useState<FormState>(initialState);
-  const [submitting, setSubmitting] = useState(false);
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState<string>("");
 
@@ -84,7 +81,7 @@ export default function RegisterPage() {
     return "";
   }
 
-  async function onSubmit(e: React.FormEvent) {
+  function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setStatus("idle");
     setErrorMsg("");
@@ -96,49 +93,38 @@ export default function RegisterPage() {
       return;
     }
 
-    setSubmitting(true);
-    try {
-      const payload = {
-        name: form.name.trim(),
-        age: form.age.trim(),
-        dob: form.dob.trim() || undefined,
-        gender: form.gender,
-        genderOther: form.gender === "Other" ? form.genderOther.trim() : undefined,
+    const genderLine =
+      form.gender === "Other" && form.genderOther.trim()
+        ? `Other (${form.genderOther.trim()})`
+        : form.gender;
 
-        whatsapp: form.whatsapp.trim(),
-        email: form.email.trim(),
+    const heardLine =
+      [...form.heard.filter((x) => x !== "Other"), form.heard.includes("Other") ? form.heardOther.trim() : ""]
+        .filter(Boolean)
+        .join(", ") || "-";
 
-        level: form.level,
+    const text = `New registration / enquiry:
 
-        goals: form.goals.trim() || undefined,
-        background: form.background.trim() || undefined,
+Name: ${form.name.trim()}
+Age: ${form.age.trim()}
+Date of Birth: ${form.dob.trim() || "-"}
+Gender: ${genderLine}
 
-        heard: form.heard,
-        heardOther: form.heard.includes("Other") ? form.heardOther.trim() : undefined,
+WhatsApp/Contact: ${form.whatsapp.trim()}
+Email: ${form.email.trim()}
 
-        company: form.company,
-      };
+Level: ${form.level}
 
-      const res = await fetch("/api/inquiry/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
+Goals: ${form.goals.trim() || "-"}
+Previous dance background: ${form.background.trim() || "-"}
 
-      const data = await res.json().catch(() => ({}));
+Heard from: ${heardLine}`;
 
-      if (!res.ok) {
-        throw new Error(data?.error || "Something went wrong. Please try again.");
-      }
+    const link = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+    window.open(link, "_blank", "noopener,noreferrer");
 
-      setStatus("success");
-      setForm(initialState);
-    } catch (err: any) {
-      setStatus("error");
-      setErrorMsg(err?.message || "Failed to submit. Try again.");
-    } finally {
-      setSubmitting(false);
-    }
+    setStatus("success");
+    setForm(initialState);
   }
 
   return (
@@ -285,18 +271,6 @@ export default function RegisterPage() {
               )}
             </div>
 
-            {/* Honeypot field — hidden from real users, catches basic bots */}
-            <input
-              type="text"
-              name="company"
-              value={form.company}
-              onChange={(e) => update("company", e.target.value)}
-              tabIndex={-1}
-              autoComplete="off"
-              className="absolute left-[-9999px] h-0 w-0 opacity-0"
-              aria-hidden="true"
-            />
-
             {status === "error" && (
               <div className="mt-6 rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-200">
                 {errorMsg || "Failed to submit. Try again."}
@@ -305,23 +279,19 @@ export default function RegisterPage() {
 
             {status === "success" && (
               <div className="mt-6 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-200">
-                Registration submitted successfully! We’ll reply soon.
+                Opening WhatsApp — just press send there to complete your registration.
               </div>
             )}
 
             <button
               type="submit"
-              disabled={submitting}
-              className={cx(
-                "mt-6 w-full rounded-xl bg-amber-300 px-6 py-3 text-sm font-semibold text-neutral-900",
-                "hover:bg-amber-200 transition disabled:opacity-60 disabled:cursor-not-allowed"
-              )}
+              className="mt-6 w-full rounded-xl bg-amber-300 px-6 py-3 text-sm font-semibold text-neutral-900 hover:bg-amber-200 transition"
             >
-              {submitting ? "Submitting..." : "Submit Registration"}
+              Submit via WhatsApp
             </button>
 
             <p className="mt-3 text-xs text-neutral-400">
-              By submitting, you agree that we may contact you via email/WhatsApp.
+              By submitting, you agree that we may contact you via WhatsApp.
             </p>
           </form>
 
