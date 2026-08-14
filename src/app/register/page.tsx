@@ -219,7 +219,7 @@ Heard from: ${heardLine}`;
                 />
               </Field>
 
-              <Field label="Country *" className="md:col-span-1">
+              <Field label="Country of Residence *" className="md:col-span-1">
                 <Input
                   value={form.country}
                   onChange={(e) => update("country", e.target.value)}
