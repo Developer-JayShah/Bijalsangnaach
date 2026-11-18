@@ -3,8 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 import { Menu, X } from "lucide-react";
-import Logo from "@/components/Logo";
 
 const LINKS = [
   { href: "/about", label: "About" },
@@ -22,7 +22,14 @@ export default function Navbar() {
     <header className="fixed top-0 left-0 right-0 z-50 bg-black/40 backdrop-blur border-b border-white/10">
       <nav className="mx-auto max-w-7xl flex items-center justify-between px-4 md:px-6 py-3 text-sm text-white">
         <Link href="/" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
-          <Logo size={36} />
+          <Image
+            src="/logo.png"
+            alt="Bijalsangnaach logo"
+            width={40}
+            height={40}
+            className="rounded-full"
+            priority
+          />
 
           <div className="leading-tight">
             <p className="font-serif font-semibold tracking-wide">Bijalsangnaach</p>
