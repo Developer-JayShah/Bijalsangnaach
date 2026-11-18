@@ -315,6 +315,20 @@ export default function AboutPage() {
   </div>
 
   <div className="space-y-3">
+    <h3 className="font-semibold text-neutral-100">
+      Theatrical &amp; Dance Drama Performances (2026)
+    </h3>
+    <ul className="list-disc list-inside space-y-1 text-neutral-200">
+      <li>Ramleela — Performed as a Kathak dancer in a traditional dance-drama production.</li>
+      <li>
+        Krishnaleela — Portrayed the role of Radha, presenting the character through
+        Kathak dance and expressive storytelling.
+      </li>
+      <li>Tridev Musical Drama — Featured as a Kathak dancer in a mythological musical production.</li>
+    </ul>
+  </div>
+
+  <div className="space-y-3">
     <h3 className="font-semibold text-neutral-100">Special Classical Productions</h3>
     <ul className="list-disc list-inside space-y-1 text-neutral-200">
       <li>
