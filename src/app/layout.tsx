@@ -14,7 +14,7 @@ const playfair = Playfair_Display({
 const SITE_TITLE = "Bijalsangnaach — Kathak Academy";
 const SITE_DESCRIPTION =
   "National award-winning Kathak performer and academy based in New Jersey, USA. In-person classes in NJ and online classes worldwide.";
-const OG_IMAGE = "/collage/b9.jpeg";
+const OG_IMAGE = "/collage/b17.jpg";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://bijalsangnaach.vercel.app"),
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
       {
         url: OG_IMAGE,
         width: 1600,
-        height: 1184,
+        height: 2399,
         alt: "Bijal Barot performing Kathak",
       },
     ],
@@ -54,7 +54,7 @@ const JSON_LD = {
       name: "Bijalsangnaach Kathak Academy",
       description: SITE_DESCRIPTION,
       url: "https://bijalsangnaach.vercel.app",
-      image: "https://bijalsangnaach.vercel.app/collage/b9.jpeg",
+      image: "https://bijalsangnaach.vercel.app/collage/b17.jpg",
       areaServed: [
         { "@type": "Place", name: "New Jersey, USA" },
         { "@type": "Place", name: "Worldwide (Online)" },

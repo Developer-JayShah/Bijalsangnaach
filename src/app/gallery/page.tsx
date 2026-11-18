@@ -26,6 +26,12 @@ const ITEMS: GalleryItem[] = [
   { src: "/collage/b12.jpeg", alt: "Kathak performance", category: "Performances" },
   { src: "/collage/b13.jpeg", alt: "Kathak performance", category: "Performances" },
   { src: "/collage/b14.jpeg", alt: "Kathak performance", category: "Performances" },
+  { src: "/collage/b15.jpg", alt: "Kathak performance", category: "Performances" },
+  { src: "/collage/b16.jpg", alt: "Kathak performance", category: "Performances" },
+  { src: "/collage/b17.jpg", alt: "Kathak performance", category: "Performances" },
+  { src: "/collage/b18.jpg", alt: "Kathak performance", category: "Performances" },
+  { src: "/collage/b19.jpg", alt: "Kathak performance", category: "Performances" },
+  { src: "/collage/b20.jpg", alt: "Kathak performance", category: "Performances" },
 
   { src: "/collage/class-1.png", alt: "Kathak class", category: "Classes" },
   { src: "/collage/class-2.png", alt: "Kathak class", category: "Classes" },
