@@ -32,8 +32,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: OG_IMAGE,
-        width: 1600,
-        height: 2399,
+        width: 1100,
+        height: 1650,
         alt: "Bijal Barot performing Kathak",
       },
     ],

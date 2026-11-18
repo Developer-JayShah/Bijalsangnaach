@@ -52,7 +52,7 @@ export default function PerformancesPage() {
   // ✅ MAIN HERO VIDEO (your current 1 video)
   // Put your current video file here:
   const heroVideoSrc = "/videos/performance-1.MP4"; // <-- CHANGE THIS
-  const heroPoster = "/collage/b9.jpeg"; // optional fallback image
+  const heroPoster = "/collage/b17.jpg"; // optional fallback image
 
   return (
     <main className="min-h-screen bg-neutral-950 text-neutral-100">
