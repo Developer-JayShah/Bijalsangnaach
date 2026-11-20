@@ -1,4 +1,4 @@
-import { Facebook, Instagram, Youtube, Mail } from "lucide-react";
+import { Facebook, Instagram, Youtube, Mail, Link2 } from "lucide-react";
 
 const WHATSAPP_NUMBER = "17329551883";
 const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
@@ -33,6 +33,11 @@ const SOCIAL_LINKS = [
     label: "Message us on WhatsApp",
     href: whatsappLink,
     Icon: WhatsAppIcon,
+  },
+  {
+    label: "Linktree",
+    href: "https://linktr.ee/bijalsangnaach",
+    Icon: Link2,
   },
   {
     label: "Email us",
