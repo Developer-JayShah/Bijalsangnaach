@@ -34,13 +34,13 @@ const CREDENTIALS = [
 const TESTIMONIALS = [
   {
     quote:
-      "My daughter has been learning with Bijal ben for over a year now, and the transformation is incredible. She's patient, disciplined, and makes sure every child truly understands the technique — not just the steps.",
+      "My daughter has been learning with Bijal for over a year now, and the transformation is incredible. She's patient, disciplined, and makes sure every child truly understands the technique — not just the steps.",
     name: "Jessica Turner",
     role: "Parent, In-Person Batch (NJ, USA)",
   },
   {
     quote:
-      "I joined the online adult batch as a complete beginner, nervous about my age and my two left feet. A few months in, I actually look forward to every class. Bijal ben adjusts the pace so it never feels overwhelming.",
+      "I joined the online adult batch as a complete beginner, nervous about my age and my two left feet. A few months in, I actually look forward to every class. Bijal adjusts the pace so it never feels overwhelming.",
     name: "Ananya Mehta",
     role: "Adult Student, Online Batch (Mumbai, India)",
   },
