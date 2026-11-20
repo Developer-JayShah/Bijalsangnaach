@@ -31,6 +31,33 @@ const CREDENTIALS = [
   "Featured Artist on Sony TV's Boogie Woogie Kids Championship",
 ];
 
+const TESTIMONIALS = [
+  {
+    quote:
+      "My daughter has been learning with Bijal ben for over a year now, and the transformation is incredible. She's patient, disciplined, and makes sure every child truly understands the technique — not just the steps.",
+    name: "Jessica Turner",
+    role: "Parent, In-Person Batch (NJ, USA)",
+  },
+  {
+    quote:
+      "I joined the online adult batch as a complete beginner, nervous about my age and my two left feet. A few months in, I actually look forward to every class. Bijal ben adjusts the pace so it never feels overwhelming.",
+    name: "Ananya Mehta",
+    role: "Adult Student, Online Batch (Mumbai, India)",
+  },
+  {
+    quote:
+      "What stood out to us was how seriously she takes the Jaipur Gharana tradition while still keeping classes fun for kids. My son performed at his first cultural event this year and the confidence it gave him was priceless.",
+    name: "Sarah Collins",
+    role: "Parent, In-Person Batch (NJ, USA)",
+  },
+  {
+    quote:
+      "We looked for a Kathak teacher who could still give our daughter the discipline of the Jaipur Gharana tradition even though we're in Ahmedabad. The online batch has been wonderful — the correction and attention feel just as personal as an in-person class.",
+    name: "Kavita Desai",
+    role: "Parent, Online Batch (Ahmedabad, India)",
+  },
+];
+
 const FEATURES = [
   {
     icon: Award,
@@ -165,6 +192,37 @@ export default function HomePage() {
               <p className="mt-2 text-sm leading-relaxed text-neutral-300">{desc}</p>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* TESTIMONIALS */}
+      <section className="border-t border-white/10 bg-black/30">
+        <div className="mx-auto max-w-6xl px-4 py-20 md:px-6">
+          <div className="text-center">
+            <p className="text-xs uppercase tracking-[0.3em] text-amber-200/80">
+              Testimonials
+            </p>
+            <h2 className="mt-3 font-serif text-3xl md:text-4xl">
+              What Parents &amp; Students Say
+            </h2>
+          </div>
+
+          <div className="mt-12 grid gap-6 sm:grid-cols-2">
+            {TESTIMONIALS.map(({ quote, name, role }) => (
+              <div
+                key={name}
+                className="rounded-2xl border border-white/10 bg-white/5 p-6 md:p-7"
+              >
+                <p className="text-sm leading-relaxed text-neutral-200 md:text-[15px]">
+                  &ldquo;{quote}&rdquo;
+                </p>
+                <div className="mt-5">
+                  <p className="font-serif text-base text-neutral-100">{name}</p>
+                  <p className="text-xs text-amber-200/70">{role}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
