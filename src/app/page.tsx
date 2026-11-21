@@ -34,25 +34,25 @@ const CREDENTIALS = [
 const TESTIMONIALS = [
   {
     quote:
-      "My daughter has been learning with Bijal for over a year now, and the transformation is incredible. She's patient, disciplined, and makes sure every child truly understands the technique — not just the steps.",
+      "My daughter has been going to Bijal's class for over a year now and she just loves it. Bijal is so patient with the kids, but she also makes sure they learn it properly instead of just copying steps. We've seen a big difference in her.",
     name: "Jessica Turner",
     role: "Parent, In-Person Batch (NJ, USA)",
   },
   {
     quote:
-      "I joined the online adult batch as a complete beginner, nervous about my age and my two left feet. A few months in, I actually look forward to every class. Bijal adjusts the pace so it never feels overwhelming.",
+      "I joined the online adult batch as a total beginner and honestly I was nervous. But Bijal goes at a pace that works for everyone, and now I really look forward to my classes every week.",
     name: "Ananya Mehta",
     role: "Adult Student, Online Batch (Mumbai, India)",
   },
   {
     quote:
-      "What stood out to us was how seriously she takes the Jaipur Gharana tradition while still keeping classes fun for kids. My son performed at his first cultural event this year and the confidence it gave him was priceless.",
-    name: "Sarah Collins",
+      "My daughter was really shy when she started. Now she's practicing her footwork at home all the time! Bijal is strict when she needs to be but so loving with the girls. So happy we found her.",
+    name: "Priya Patel",
     role: "Parent, In-Person Batch (NJ, USA)",
   },
   {
     quote:
-      "We looked for a Kathak teacher who could still give our daughter the discipline of the Jaipur Gharana tradition even though we're in Ahmedabad. The online batch has been wonderful — the correction and attention feel just as personal as an in-person class.",
+      "We're in Ahmedabad and I wasn't sure online Kathak would work for my daughter. But Bijal corrects every small detail and gives her so much attention, it feels just like an in-person class.",
     name: "Kavita Desai",
     role: "Parent, Online Batch (Ahmedabad, India)",
   },

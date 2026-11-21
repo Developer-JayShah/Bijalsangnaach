@@ -157,7 +157,6 @@ export default function PerformancesPage() {
             </Card>
           </div>
         </section>
-
         {/* MORE PERFORMANCES */}
         <section className="mt-14">
           <h2 className="font-serif text-3xl">More Performances</h2>
@@ -194,30 +193,6 @@ export default function PerformancesPage() {
                 </div>
               </div>
             ))}
-          </div>
-        </section>
-
-        {/* FOOTER CTA */}
-        <section className="mt-14 rounded-2xl border border-white/10 bg-gradient-to-br from-neutral-900/40 to-neutral-900/10 p-7 md:p-10">
-          <h2 className="font-serif text-3xl">Want us to perform at your event?</h2>
-          <p className="mt-2 max-w-2xl text-neutral-300">
-            Share your event date, location, audience type, and preferred duration — we’ll respond with
-            availability and a suggested performance format.
-          </p>
-
-          <div className="mt-6 flex flex-wrap gap-3">
-            <Link
-              href="/contact"
-              className="rounded-full bg-amber-300 px-6 py-3 font-semibold text-neutral-900 hover:bg-amber-200 transition"
-            >
-              Book a Performance
-            </Link>
-            <Link
-              href="/gallery"
-              className="rounded-full border border-white/15 bg-white/5 px-6 py-3 font-semibold text-white hover:bg-white/10 transition"
-            >
-              View Gallery
-            </Link>
           </div>
         </section>
       </div>
