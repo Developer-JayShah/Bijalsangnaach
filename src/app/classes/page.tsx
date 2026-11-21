@@ -90,20 +90,6 @@ export default function ClassesPage() {
               </div>
             </section>
 
-            {/* What you’ll learn */}
-            <section className="rounded-2xl border border-white/10 bg-white/5 p-6">
-              <h2 className="font-serif text-2xl">What you’ll learn</h2>
-              <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                <InfoPill title="Rhythm & Taal" desc="Lay, taal, and clarity" />
-                <InfoPill title="Tatkaar" desc="Footwork technique + speed" />
-                <InfoPill title="Chakkars" desc="Balance, posture, control" />
-                <InfoPill
-                  title="Compositions"
-                  desc="Tukda, tora, tihaai practice"
-                />
-              </div>
-            </section>
-
             {/* Ready to begin */}
             <section className="rounded-2xl border border-white/10 bg-white/5 p-6">
               <h2 className="font-serif text-3xl">Ready to begin?</h2>
@@ -207,15 +193,6 @@ function BatchCard({ title }: { title: string }) {
           WhatsApp
         </a>
       </div>
-    </div>
-  );
-}
-
-function InfoPill({ title, desc }: { title: string; desc: string }) {
-  return (
-    <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-      <p className="font-semibold">{title}</p>
-      <p className="mt-1 text-sm text-neutral-300">{desc}</p>
     </div>
   );
 }
